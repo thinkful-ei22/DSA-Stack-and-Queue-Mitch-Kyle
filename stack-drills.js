@@ -22,6 +22,39 @@ const is_palindrome = (string) => {
   return true;
 };
 
+/**
+ * Matching parentheses in an expression
+ */
+
+// build up an object to use as a key for multiple types of ()[]{} using .charCodeAt()?
+
+const parenthesesMatch = (expr) => {
+  let parens = new Stack();
+  let error = null;
+  for (let i=0; i < expr.length; i++) {
+    if (expr[i] === '(') {
+      parens.push({ value: '(', location: i });
+    }
+    // check top of stack for '('
+    if (expr[i] === ')') {
+      let oldTop;
+      // if its an open, pop and continue looping
+      if (parens.top) {
+        oldTop = parens.pop();
+      }
+      // if its NOT an open, return error w/message
+      if (!oldTop || oldTop.value !== '(') {
+        error = { value: ')', location: i };
+        return error;
+      }
+    }
+  }
+  if (parens.top) {
+    error = parens.pop();
+  }
+  return error;
+};
+
 
 function main() {
   let starTrek = new Stack();
@@ -45,5 +78,16 @@ function main() {
   console.log(is_palindrome('A man, a plan, a canal: Panama')); // true
   console.log(is_palindrome('1001')); // true
   console.log(is_palindrome('Tauhida')); // false
+
+  // MATCHING PARENS
+  console.log(parenthesesMatch('(1 + 2) + 3')); // null
+  console.log(parenthesesMatch('(1 + 2) + 3)')); // {value: ')', location: 11}
+  console.log(parenthesesMatch(')1 + 2) + 3')); // {value: ')', location: 0}
+  console.log(parenthesesMatch('(1 + 2 + (3)')); // {value: '(', location: 0}
+  // console.log(parenthesesMatch('([({})])'));
+  // console.log(parenthesesMatch('([({)}])'));
+  // console.log(parenthesesMatch('\'{("\''));
+  // console.log(parenthesesMatch('[{\'(\'}(\'\')]'));
+  // console.log(parenthesesMatch('[{\'("}(\'\')]'));
 }
 main();
