@@ -1,5 +1,7 @@
+'use strict';
 const Queue = require('./Queue');
 const Stack = require('./Stack');
+const BankQueue = require('./BankQueue');
 const { peek, display } = require('./queue-helpers');
 
 function main(){
@@ -78,22 +80,42 @@ const dancePairing = (dancer) => {
   }
 };
 
-dancePairing({'name': 'Jane', 'gender': 'F'});
-dancePairing({'name': 'Frank', 'gender': 'M'});
-dancePairing({'name': 'John', 'gender': 'M'});
-dancePairing({'name': 'Sherlock', 'gender': 'M'});
-dancePairing({'name': 'Madonna', 'gender': 'F'});
-dancePairing({'name': 'David', 'gender': 'M'});
-dancePairing({'name': 'Christoper', 'gender': 'M'});
-dancePairing({'name': 'Beyonce', 'gender': 'F'});
+// dancePairing({'name': 'Jane', 'gender': 'F'});
+// dancePairing({'name': 'Frank', 'gender': 'M'});
+// dancePairing({'name': 'John', 'gender': 'M'});
+// dancePairing({'name': 'Sherlock', 'gender': 'M'});
+// dancePairing({'name': 'Madonna', 'gender': 'F'});
+// dancePairing({'name': 'David', 'gender': 'M'});
+// dancePairing({'name': 'Christoper', 'gender': 'M'});
+// dancePairing({'name': 'Beyonce', 'gender': 'F'});
 
-// The Ophidian Bank
+// OPHIDIAN BANK
 
-const ophidianBank = (person) => {
-  const paperwork = Math.random() < 0.75;
+const ophidian = new BankQueue();
 
-  // if paperwork is good, dequeue
-  // if paperwork is bad, end of the line
+ophidian.enqueue('person1');
+ophidian.enqueue('person2');
+ophidian.enqueue('person3');
+ophidian.enqueue('person4');
+ophidian.enqueue('person5');
+ophidian.enqueue('person6');
+ophidian.enqueue('person7');
+ophidian.enqueue('person8');
+ophidian.enqueue('person9');
+ophidian.enqueue('person10');
 
-};
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+console.log(ophidian.randomDequeue());
+
+
+display(ophidian);
+
 

@@ -7,7 +7,7 @@ const peek = (queue) => {
 const display = (queue) => {
   let currNode = queue.first;
   while (currNode) {
-    console.log(currNode);
+    console.log(currNode.value);
     currNode = currNode.next;
   }
 };
