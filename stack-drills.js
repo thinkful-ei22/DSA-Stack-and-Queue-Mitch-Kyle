@@ -30,29 +30,22 @@ const is_palindrome = (string) => {
 
 const parenthesesMatch = (expr) => {
   let parens = new Stack();
+  const open = { '(': ')', '[': ']', '{': '}' };
+  const close = { ')': true, ']': true, '}': true };
   let error = null;
   for (let i=0; i < expr.length; i++) {
-    if (expr[i] === '(') {
-      parens.push({ value: '(', location: i });
-    }
-    // check top of stack for '('
-    if (expr[i] === ')') {
-      let oldTop;
-      // if its an open, pop and continue looping
-      if (parens.top) {
-        oldTop = parens.pop();
-      }
-      // if its NOT an open, return error w/message
-      if (!oldTop || oldTop.value !== '(') {
-        error = { value: ')', location: i };
+    if (open[expr[i]]) {
+      parens.push({ value: expr[i], location: i });
+    } else if (close[expr[i]]) {
+      let oldTop = parens.pop();
+      
+      if (!oldTop || open[oldTop.value] !== expr[i]) {
+        error = { value: expr[i], location: i };
         return error;
       }
     }
   }
-  if (parens.top) {
-    error = parens.pop();
-  }
-  return error;
+  return parens.pop();
 };
 
 
@@ -84,8 +77,8 @@ function main() {
   console.log(parenthesesMatch('(1 + 2) + 3)')); // {value: ')', location: 11}
   console.log(parenthesesMatch(')1 + 2) + 3')); // {value: ')', location: 0}
   console.log(parenthesesMatch('(1 + 2 + (3)')); // {value: '(', location: 0}
-  // console.log(parenthesesMatch('([({})])'));
-  // console.log(parenthesesMatch('([({)}])'));
+  console.log(parenthesesMatch('([({})])')); // null
+  console.log(parenthesesMatch('([({)}])')); // { value: ')', location: 4}
   // console.log(parenthesesMatch('\'{("\''));
   // console.log(parenthesesMatch('[{\'(\'}(\'\')]'));
   // console.log(parenthesesMatch('[{\'("}(\'\')]'));
