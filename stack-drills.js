@@ -48,6 +48,22 @@ const parenthesesMatch = (expr) => {
   return parens.pop();
 };
 
+// sort stack
+const sortStack = (stack1) => {
+  let stack2 = new Stack();
+
+  while(stack1.top) {
+    let temp = stack1.pop();
+
+    while (stack2.top && stack2.top.data < temp) {
+      stack1.push(stack2.pop());
+    }
+    stack2.push(temp);
+  }
+
+  return stack2;
+};
+
 
 function main() {
   let starTrek = new Stack();
@@ -82,5 +98,14 @@ function main() {
   // console.log(parenthesesMatch('\'{("\''));
   // console.log(parenthesesMatch('[{\'(\'}(\'\')]'));
   // console.log(parenthesesMatch('[{\'("}(\'\')]'));
+  let numbers = new Stack();
+  numbers.push(6);
+  numbers.push(3);
+  numbers.push(17);
+  numbers.push(1);
+  numbers.push(5);
+  let sorted = sortStack(numbers);
+  console.log('===================');
+  display(sorted);
 }
 main();
